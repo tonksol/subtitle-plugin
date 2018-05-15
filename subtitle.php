@@ -10,7 +10,7 @@
 if (!defined('ABSPATH')) exit; // Security: Exit if accessed directly
 
 class Subtitle {
-    // Action hooks and filter hooks
+
     public function __construct() {
         add_action('admin_enqueue_scripts', array($this,'includes'));
         add_action('edit_form_after_title', array($this, 'addSubtitle'));
@@ -39,12 +39,11 @@ class Subtitle {
         $post_type = get_post_type($postID);
         if (current_user_can('editor') || current_user_can('administrator') ) {
             if (isset($_POST['subtitle'])){
-                update_post_meta($postID, 'subtitle', '<h5>' . sanitize_text_field( $_POST['subtitle']) . '</h5><br>');
+                update_post_meta($postID, 'subtitle',  sanitize_text_field( $_POST['subtitle']));
             }
         }
     }
 
 } // ./ class subtitle
 
-// use return error_log() for debugging
 $plugin = new Subtitle();
